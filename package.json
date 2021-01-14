@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/DemarioDouce/ChatApp#readme",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "express": "^4.17.1",
     "socket.io": "^3.0.5"
   },
