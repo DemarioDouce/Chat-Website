@@ -1,29 +1,37 @@
 //nmp module
 const express = require("express");
 const http = require("http");
-const socketIo = require("socket.io");
+const socketio = require("socket.io");
 //core module
 const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketio(server);
 
 const port = process.env.PORT || 3000;
 
 const publicDirectoryPath = path.join(__dirname, "../public");
 
-let count = 0;
 //static dir to serve
 app.use(express.static(publicDirectoryPath));
 
 io.on("connection", (socket) => {
-  console.log("User connected.");
+  console.log("New WebSocket connection");
 
-  socket.on("increment", () => {
-    count++;
-    // socket.emit("countUpdate", count);
-    io.emit("countUpdate", count);
+  socket.emit("message", "Welcome!");
+  socket.broadcast.emit("message", "A new user has joined!");
+
+  socket.on("sendMessage", (message) => {
+    io.emit("message", message);
+  });
+
+  socket.on("sendLocation", (lat, lon) => {
+    io.emit("message", `https://www.openstreetmap.org/#map=18/${lat}/${lon}`);
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("message", "A user has left!");
   });
 });
 

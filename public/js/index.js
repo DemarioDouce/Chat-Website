@@ -1,15 +1,29 @@
 const socket = io();
 
 //var messages = document.getElementById("messages");
-var form = document.getElementById("form");
-//var input = document.getElementById("input");
+const form = document.getElementById("form");
+const inputTbx = document.getElementById("input");
+const locationBtn = document.getElementById("showLocation");
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("click");
-  socket.emit("increment");
+  if (inputTbx.value) {
+    socket.emit("sendMessage", inputTbx.value);
+    inputTbx.value = "";
+  }
 });
 
-socket.on("countUpdate", function (count) {
-  console.log("The count", count);
+locationBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported ny your browser.");
+  } else {
+    navigator.geolocation.getCurrentPosition((position) => {
+      socket.emit(
+        "sendLocation",
+        position.coords.latitude,
+        position.coords.longitude
+      );
+    });
+  }
 });

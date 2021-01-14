@@ -48,3 +48,13 @@ body {
 #messages > li:nth-child(odd) {
   background: #efefef;
 }
+
+#find-me {
+  background: #333;
+  border: none;
+  padding: 0 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  outline: none;
+  color: #fff;
+}
