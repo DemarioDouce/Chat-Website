@@ -1,9 +1,21 @@
 const socket = io();
 
-//const messages = document.getElementById("messages");
+//elements
 const form = document.getElementById("form");
 const inputTbx = document.getElementById("input");
 const locationBtn = document.getElementById("showLocation");
+const messages = document.getElementById("messages");
+
+//templates
+const messageTemplate = document.getElementById("messageTemplate").innerHTML;
+
+socket.on("message", (message) => {
+  console.log(message);
+  let html = Mustache.render(messageTemplate, {
+    message,
+  });
+  messages.insertAdjacentHTML("beforeend", html);
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
