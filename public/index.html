@@ -9,15 +9,24 @@
   <body>
     <main>
       <div id="messages"></div>
+      <div id="locations"></div>
       <form id="form" action="">
         <input id="input" autocomplete="off" /><button>Send</button>
         <button id="showLocation">Show my location</button>
       </form>
     </main>
-
     <script id="messageTemplate" type="text/html">
       <div>
         <p>{{message}}</p>
+      </div>
+    </script>
+
+    <script id="locationTemplate" type="text/html">
+      <div>
+        <p>
+          My current location is
+          <a href="{{location}}" target="_blank">here.</a>
+        </p>
       </div>
     </script>
 

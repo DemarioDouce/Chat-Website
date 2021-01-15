@@ -5,9 +5,11 @@ const form = document.getElementById("form");
 const inputTbx = document.getElementById("input");
 const locationBtn = document.getElementById("showLocation");
 const messages = document.getElementById("messages");
+const locations = document.getElementById("locations");
 
 //templates
 const messageTemplate = document.getElementById("messageTemplate").innerHTML;
+const locationTemplate = document.getElementById("locationTemplate").innerHTML;
 
 socket.on("message", (message) => {
   console.log(message);
@@ -15,6 +17,14 @@ socket.on("message", (message) => {
     message,
   });
   messages.insertAdjacentHTML("beforeend", html);
+});
+
+socket.on("locationMessage", (location) => {
+  console.log(location);
+  let html = Mustache.render(locationTemplate, {
+    location,
+  });
+  locations.insertAdjacentHTML("beforeend", html);
 });
 
 form.addEventListener("submit", (e) => {

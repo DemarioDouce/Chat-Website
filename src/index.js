@@ -33,7 +33,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendLocation", (lat, lon, callback) => {
-    io.emit("message", `https://www.openstreetmap.org/#map=18/${lat}/${lon}`);
+    io.emit(
+      "locationMessage",
+      `https://www.openstreetmap.org/#map=18/${lat}/${lon}`
+    );
     callback("Location found.");
   });
 
