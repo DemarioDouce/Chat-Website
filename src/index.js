@@ -8,6 +8,7 @@ const path = require("path");
 
 //local
 const { generateMessage } = require("./utils/messages");
+const { generateLocation } = require("./utils/locations");
 
 const app = express();
 const server = http.createServer(app);
@@ -38,7 +39,7 @@ io.on("connection", (socket) => {
   socket.on("sendLocation", (lat, lon, callback) => {
     io.emit(
       "locationMessage",
-      `https://www.openstreetmap.org/#map=18/${lat}/${lon}`
+      generateLocation(`https://www.openstreetmap.org/#map=18/${lat}/${lon}`)
     );
     callback("Location found.");
   });

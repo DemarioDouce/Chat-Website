@@ -23,7 +23,8 @@ socket.on("message", (message) => {
 socket.on("locationMessage", (location) => {
   console.log(location);
   let html = Mustache.render(locationTemplate, {
-    location,
+    url: location.url,
+    createdAt: moment(location.createdAt).format("MMM d, YYYY - h:mm a"),
   });
   locations.insertAdjacentHTML("beforeend", html);
 });
@@ -53,10 +54,14 @@ locationBtn.addEventListener("click", (e) => {
   } else {
     locationBtn.setAttribute("disabled", "disabled");
     navigator.geolocation.getCurrentPosition((position) => {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
       socket.emit(
         "sendLocation",
-        position.coords.latitude,
-        position.coords.longitude,
+
+        lat,
+        lon,
+
         (confirmLocation) => {
           locationBtn.removeAttribute("disabled");
           if (confirmLocation) {
