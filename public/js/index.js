@@ -14,7 +14,8 @@ const locationTemplate = document.getElementById("locationTemplate").innerHTML;
 socket.on("message", (message) => {
   console.log(message);
   let html = Mustache.render(messageTemplate, {
-    message,
+    message: message.text,
+    createdAt: moment(message.createdAt).format("MMM d, YYYY - h:mm a"),
   });
   messages.insertAdjacentHTML("beforeend", html);
 });

@@ -6,6 +6,9 @@ const Filter = require("bad-words");
 //core module
 const path = require("path");
 
+//local
+const { generateMessage } = require("./utils/messages");
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -20,14 +23,14 @@ app.use(express.static(publicDirectoryPath));
 io.on("connection", (socket) => {
   console.log("New WebSocket connection");
 
-  socket.broadcast.emit("message", "A new user has joined!");
+  socket.broadcast.emit("message", generateMessage("A new user has joined!"));
 
   socket.on("sendMessage", (message, callback) => {
     let filter = new Filter();
     if (filter.isProfane(message)) {
       callback("Backwords are not allowed.");
     } else {
-      io.emit("message", message);
+      io.emit("message", generateMessage(message));
       callback("Message was delivered");
     }
   });
@@ -41,7 +44,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    io.emit("message", "A user has left!");
+    io.emit("message", generateMessage("A user has left!"));
   });
 });
 
