@@ -1,4 +1,5 @@
-# ChatApp
-## Learning project
+# Chat
 ---
-Simple chatapp app using Socket.io.
+## Screenshot
+![Mockup image.](/Mockups/MockupHomepage.png)
+---
