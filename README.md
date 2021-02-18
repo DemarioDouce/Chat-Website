@@ -1,5 +1,5 @@
 # Chat
 ---
 ## Screenshot
-![Mockup image.](/Mockups/MockupHomepage.png)
+![Mockup image.](/Mockups/MockupChat.png)
 ---
